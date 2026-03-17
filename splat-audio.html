@@ -18,11 +18,16 @@
       touch-action: none;
     }
 
-    button {
+    .controls {
       position: fixed;
       top: 16px;
       left: 16px;
       z-index: 1;
+      display: flex;
+      gap: 10px;
+    }
+
+    button {
       border: 0;
       border-radius: 999px;
       background: rgba(255, 255, 255, 0.9);
@@ -39,7 +44,10 @@
 </head>
 
 <body>
-  <button id="audio-toggle" type="button">Play Audio</button>
+  <div class="controls">
+    <button id="audio-toggle" type="button">Play Audio</button>
+    <button id="audio-visibility-toggle" type="button">Hide Audio Mesh</button>
+  </div>
 
   <script type="importmap">
     {
@@ -56,6 +64,7 @@
     import { SparkRenderer, SplatMesh, SparkControls, utils } from "@sparkjsdev/spark";
 
     const toggleButton = document.getElementById("audio-toggle");
+    const visibilityToggleButton = document.getElementById("audio-visibility-toggle");
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 0.01, 1000);
 
@@ -127,13 +136,17 @@
       const buffer = await audioLoader.loadAsync(url);
       audio.setBuffer(buffer);
 
-      return audio;
+      return {
+        anchor,
+        audio,
+      };
     }
 
     const emitters = await Promise.all([
       addEmitter([0.24656978419511813, 0.0668756835999589, -3.786995722825606], "./audio/rattle.mp3", 0.35, 0xa1b70d),
       addEmitter([-1.3179427394509902, -0.13402284789000768, 0.6756281962153219], "./audio/rain.mp3", 0.7, 0xe89923),
     ]);
+    let audioMeshesVisible = true;
 
     async function toggleAudio() {
       toggleButton.disabled = true;
@@ -141,8 +154,8 @@
       try {
         await listener.context.resume();
 
-        const anyPlaying = emitters.some((audio) => audio.isPlaying);
-        for (const audio of emitters) {
+        const anyPlaying = emitters.some(({ audio }) => audio.isPlaying);
+        for (const { audio } of emitters) {
           if (anyPlaying) {
             audio.pause();
           } else {
@@ -156,9 +169,20 @@
       }
     }
 
+    function toggleAudioMeshes() {
+      audioMeshesVisible = !audioMeshesVisible;
+
+      for (const { anchor } of emitters) {
+        anchor.visible = audioMeshesVisible;
+      }
+
+      visibilityToggleButton.textContent = audioMeshesVisible ? "Hide Audio Mesh" : "Show Audio Mesh";
+    }
+
     toggleButton.addEventListener("click", () => {
       void toggleAudio();
     });
+    visibilityToggleButton.addEventListener("click", toggleAudioMeshes);
 
     renderer.domElement.addEventListener("click", () => {
       camera.getWorldPosition(cameraWorldPosition);
