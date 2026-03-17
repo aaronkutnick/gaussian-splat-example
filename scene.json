@@ -1,0 +1,30 @@
+{
+  "splats": [
+    {
+      "filename": "splats/spacious-industrial-room.spz",
+      "transform": {
+        "translation": [
+          0,
+          0,
+          0
+        ],
+        "rotation": [
+          180,
+          0,
+          0
+        ],
+        "quaternion": [
+          1,
+          0,
+          0,
+          6.123233995736766e-17
+        ],
+        "scale": 1
+      }
+    }
+  ],
+  "metadata": {
+    "exportTimestamp": "2026-03-17T02:45:21.278Z",
+    "spzExportVersion": 3
+  }
+}
