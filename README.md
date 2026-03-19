@@ -8,14 +8,14 @@ This project includes a minimal Node.js + Express server that serves the static 
 
 ### Development
 
-Install dependencies and run the app locally:
+Install dependencies and run the app locally with automatic reloads:
 
 ```bash
 npm install
 npm run dev
 ```
 
-Then open [http://localhost:3000](http://localhost:3000).
+Then open [http://localhost:3000](http://localhost:3000). The `dev` script uses `nodemon`, so the server restarts automatically when you change the Express app during local development.
 
 ### Deployment
 
