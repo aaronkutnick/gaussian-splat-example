@@ -61,6 +61,7 @@
 
   <script type="module">
     import * as THREE from "three";
+    import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
     import { SparkRenderer, SplatMesh, SparkControls, utils } from "@sparkjsdev/spark";
 
     const toggleButton = document.getElementById("audio-toggle");
@@ -95,6 +96,7 @@
     controls.pointerControls.rotateSpeed *= 2.0;
     controls.pointerControls.slideSpeed *= 0.75;
 
+    const gltfLoader = new GLTFLoader();
     const sceneData = await fetch("./scene.json").then((response) => response.json());
 
     for (const splat of sceneData.splats ?? []) {
@@ -109,6 +111,39 @@
       const scale = splat.transform?.scale ?? 1;
       splatMesh.scale.set(scale, scale, scale);
       scene.add(splatMesh);
+    }
+
+    for (const mesh of sceneData.meshes ?? []) {
+      try {
+        const gltf = await gltfLoader.loadAsync(`./${mesh.filename}`);
+        const model = gltf.scene;
+
+        model.traverse((child) => {
+          if (!child.isMesh) {
+            return;
+          }
+
+          const materials = Array.isArray(child.material) ? child.material : [child.material];
+          child.material = materials.map((material) => new THREE.MeshBasicMaterial({
+            color: material?.color ?? 0x888888,
+            map: material?.map ?? null,
+            side: THREE.DoubleSide,
+          }));
+
+          if (child.material.length === 1) {
+            child.material = child.material[0];
+          }
+        });
+
+        model.position.fromArray(mesh.transform?.translation ?? [0, 0, 0]);
+        model.quaternion.fromArray(mesh.transform?.quaternion ?? [0, 0, 0, 1]);
+
+        const scale = mesh.transform?.scale ?? [1, 1, 1];
+        model.scale.set(scale[0], scale[1], scale[2]);
+        scene.add(model);
+      } catch (error) {
+        console.warn(`Failed to load mesh: ${mesh.filename}`, error);
+      }
     }
 
     const audioLoader = new THREE.AudioLoader();
