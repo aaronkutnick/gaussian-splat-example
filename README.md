@@ -1,51 +1,52 @@
-# Scene Viewer
+# Guassian Splat Example
 
-A standalone viewer for your exported Marble scene, powered by [SparkJS](https://sparkjs.dev).
+A set of Gaussian splat viewer variations, powered by [SparkJS](https://sparkjs.dev).
 
-## Quickstart
+## Express App
 
-To view your scene locally, you'll need to serve the files over HTTP (opening `index.html` directly won't work).
+This project includes a minimal Node.js + Express server that serves the static site from `public/`.
 
-### Using VS Code Live Server
+### Development
 
-If you're using VS Code, a simple option is the Live Server extension.
-
-1. Install the `Live Server` extension in VS Code.
-2. Open this folder in VS Code.
-3. Right-click `index.html` and choose `Open with Live Server`.
-
-### Using Python
-
-The easiest way is to use Python's built-in HTTP server:
+Install dependencies and run the app locally:
 
 ```bash
-# Navigate to this folder in your terminal
-cd /path/to/your/exported/scene
-
-# Start the server
-python3 -m http.server 8000
+npm install
+npm run dev
 ```
 
-Then open [http://localhost:8000](http://localhost:8000) in your browser.
+Then open [http://localhost:3000](http://localhost:3000).
 
-### Using Node.js
+### Deployment
 
-Alternatively, if you have Node.js installed:
+The server listens on `process.env.PORT`, which makes it compatible with common Node hosting platforms.
+
+Use this startup command in production:
 
 ```bash
-npx serve .
+npm start
 ```
+
+Typical deployment flow:
+
+```bash
+npm install
+npm start
+```
+
+Express will serve the site from `public/` and expose the health check at `/health`.
 
 ## Files
 
-- `index.html` – Main scene viewer
-- `audio.html` – Scene viewer with audio support
-- `splat-audio.html` – Splat viewer with positional audio markers
-- `marble-template.html` – Base template file
-- `scene.json` – Scene data and transforms
-- `spark.module.min.js` – SparkJS library
-- `audio/` – Audio files used by the examples
-- `splats/` – Gaussian splat assets
+- `public/index.html` – Main scene viewer
+- `public/audio.html` – Scene viewer with audio support
+- `public/splat-audio.html` – Splat viewer with positional audio markers
+- `public/marble-template.html` – Base template file
+- `public/scene.json` – Scene data and transforms
+- `public/spark.module.min.js` – SparkJS library
+- `public/audio/` – Audio files used by the examples
+- `public/meshes/` – Mesh assets used by the examples
+- `public/splats/` – Gaussian splat assets
 
 ## Resources
 
