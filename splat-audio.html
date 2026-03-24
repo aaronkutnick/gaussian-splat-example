@@ -101,9 +101,9 @@
 
     for (const splat of sceneData.splats ?? []) {
       const splatMesh = new SplatMesh({
-        url: `./${splat.filename}`,
-        lod: true,
+        url: "/public/assets/fantasy-world/project-white-greek-butterfly-sanctuary/white-greek-butterfly-sanctuary.spz"
       });
+
 
       splatMesh.position.fromArray(splat.transform?.translation ?? [0, 0, 0]);
       splatMesh.quaternion.fromArray(splat.transform?.quaternion ?? [0, 0, 0, 1]);
@@ -112,6 +112,16 @@
       splatMesh.scale.set(scale, scale, scale);
       scene.add(splatMesh);
     }
+
+    const butterfly = new SplatMesh({
+  url: "https://sparkjs.dev/assets/splats/butterfly.spz"
+});
+
+butterfly.position.set(0, 0.6, -2);
+butterfly.scale.set(0.5, 0.5, 0.5);
+butterfly.rotation.x = Math.PI;
+
+scene.add(butterfly);
 
     for (const mesh of sceneData.meshes ?? []) {
       try {
@@ -178,8 +188,8 @@
     }
 
     const emitters = await Promise.all([
-      addEmitter([0.24656978419511813, 0.0668756835999589, -3.786995722825606], "./audio/rattle.mp3", 0.35, 0xa1b70d),
-      addEmitter([-1.3179427394509902, -0.13402284789000768, 0.6756281962153219], "./audio/rain.mp3", 0.7, 0xe89923),
+      addEmitter([-2.0687513041758714, 2.232889461222967, -5.127056235884627], "audio.mp3", 0.35, 0xa1b70d),
+
     ]);
     let audioMeshesVisible = true;
 
@@ -213,7 +223,7 @@
 
       visibilityToggleButton.textContent = audioMeshesVisible ? "Hide Audio Mesh" : "Show Audio Mesh";
     }
-
+ 
     toggleButton.addEventListener("click", () => {
       void toggleAudio();
     });
@@ -238,6 +248,7 @@
 
     renderer.setAnimationLoop(() => {
       controls.update(localFrame, camera);
+      butterfly.rotation.y += 0.01; 
       renderer.render(scene, camera);
     });
   </script>

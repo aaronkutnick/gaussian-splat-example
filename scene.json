@@ -1,60 +1,13 @@
 {
   "splats": [
     {
-      "filename": "splats/spacious-industrial-room.spz",
+      "filename": "public/assets/fantasy-world/project-white-greek-butterfly-sanctuary/white-greek-butterfly-sanctuary.spz",
       "transform": {
-        "translation": [
-          0,
-          0,
-          0
-        ],
-        "rotation": [
-          180,
-          0,
-          0
-        ],
-        "quaternion": [
-          1,
-          0,
-          0,
-          6.123233995736766e-17
-        ],
-        "scale": 1
+        "translation": [0, 0, 0],
+        "rotation": [0, 0, 0],
+        "quaternion": [1, 0, 0, 0],
+        "scale": 3
       }
     }
-  ],
-  "meshes": [
-    {
-      "filename": "meshes/object_0-1glb.glb",
-      "originalFilename": "object_0 (1).glb",
-      "mimeType": "model/gltf-binary",
-      "transform": {
-        "translation": [
-          0.07,
-          -0.32,
-          0
-        ],
-        "rotation": [
-          0,
-          0,
-          0
-        ],
-        "quaternion": [
-          0,
-          0,
-          0,
-          1
-        ],
-        "scale": [
-          1,
-          1,
-          1
-        ]
-      }
-    }
-  ],
-  "metadata": {
-    "exportTimestamp": "2026-03-17T04:48:59.753Z",
-    "spzExportVersion": 2
-  }
+  ]
 }

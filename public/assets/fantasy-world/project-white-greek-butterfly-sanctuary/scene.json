@@ -1,0 +1,30 @@
+{
+  "splats": [
+    {
+      "filename": "white-greek-butterfly-sanctuary.spz",
+      "transform": {
+        "translation": [
+          0,
+          0.8262745141983032,
+          0
+        ],
+        "rotation": [
+          180,
+          0,
+          0
+        ],
+        "quaternion": [
+          1,
+          0,
+          0,
+          6.123233995736766e-17
+        ],
+        "scale": 1.275782823562622
+      }
+    }
+  ],
+  "metadata": {
+    "exportTimestamp": "2026-03-24T00:43:38.305Z",
+    "spzExportVersion": 3
+  }
+}
